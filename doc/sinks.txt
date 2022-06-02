@@ -1,0 +1,212 @@
+Sink #0
+	State: IDLE
+	Name: alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_5__sink
+	Description: Comet Lake PCH-LP cAVS HDMI / DisplayPort 3 Output
+	Driver: module-alsa-card.c
+	Sample Specification: s24-32le 2ch 48000Hz
+	Channel Map: front-left,front-right
+	Owner Module: 6
+	Mute: no
+	Volume: front-left: 19599 /  30% / -31,45 dB,   front-right: 19599 /  30% / -31,45 dB
+	        balance 0,00
+	Base Volume: 65536 / 100% / 0,00 dB
+	Monitor Source: alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_5__sink.monitor
+	Latency: 39518 usec, configured 40000 usec
+	Flags: HARDWARE DECIBEL_VOLUME LATENCY 
+	Properties:
+		alsa.resolution_bits = "32"
+		device.api = "alsa"
+		device.class = "sound"
+		alsa.class = "generic"
+		alsa.subclass = "generic-mix"
+		alsa.name = ""
+		alsa.id = "HDMI3 (*)"
+		alsa.subdevice = "0"
+		alsa.subdevice_name = "subdevice #0"
+		alsa.device = "5"
+		alsa.card = "0"
+		alsa.card_name = "sof-hda-dsp"
+		alsa.long_card_name = "LENOVO-20S7000EGM-ThinkPadT15Gen1"
+		alsa.driver_name = "snd_soc_skl_hda_dsp"
+		device.bus_path = "pci-0000:00:1f.3-platform-skl_hda_dsp_generic"
+		sysfs.path = "/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0"
+		device.bus = "pci"
+		device.vendor.id = "8086"
+		device.vendor.name = "Intel Corporation"
+		device.product.id = "02c8"
+		device.product.name = "Comet Lake PCH-LP cAVS"
+		device.string = "_ucm0001.hw:sofhdadsp,5"
+		device.buffering.buffer_size = "65536"
+		device.buffering.fragment_size = "16384"
+		device.access_mode = "mmap+timer"
+		device.profile.name = "HiFi: hw:sofhdadsp,5: sink"
+		device.profile.description = "HDMI / DisplayPort 3 Output"
+		alsa.mixer_device = "_ucm0001.hw:sofhdadsp"
+		device.description = "Comet Lake PCH-LP cAVS HDMI / DisplayPort 3 Output"
+		module-udev-detect.discovered = "1"
+		device.icon_name = "audio-card-pci"
+	Ports:
+		[Out] HDMI3: HDMI / DisplayPort 3 Output (type: HDMI, priority: 700, not available)
+	Active Port: [Out] HDMI3
+	Formats:
+		pcm
+
+Sink #1
+	State: IDLE
+	Name: alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_4__sink
+	Description: Comet Lake PCH-LP cAVS HDMI / DisplayPort 2 Output
+	Driver: module-alsa-card.c
+	Sample Specification: s24-32le 2ch 48000Hz
+	Channel Map: front-left,front-right
+	Owner Module: 6
+	Mute: no
+	Volume: front-left: 55947 /  85% / -4,12 dB,   front-right: 55947 /  85% / -4,12 dB
+	        balance 0,00
+	Base Volume: 65536 / 100% / 0,00 dB
+	Monitor Source: alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_4__sink.monitor
+	Latency: 37530 usec, configured 40000 usec
+	Flags: HARDWARE DECIBEL_VOLUME LATENCY 
+	Properties:
+		alsa.resolution_bits = "32"
+		device.api = "alsa"
+		device.class = "sound"
+		alsa.class = "generic"
+		alsa.subclass = "generic-mix"
+		alsa.name = ""
+		alsa.id = "HDMI2 (*)"
+		alsa.subdevice = "0"
+		alsa.subdevice_name = "subdevice #0"
+		alsa.device = "4"
+		alsa.card = "0"
+		alsa.card_name = "sof-hda-dsp"
+		alsa.long_card_name = "LENOVO-20S7000EGM-ThinkPadT15Gen1"
+		alsa.driver_name = "snd_soc_skl_hda_dsp"
+		device.bus_path = "pci-0000:00:1f.3-platform-skl_hda_dsp_generic"
+		sysfs.path = "/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0"
+		device.bus = "pci"
+		device.vendor.id = "8086"
+		device.vendor.name = "Intel Corporation"
+		device.product.id = "02c8"
+		device.product.name = "Comet Lake PCH-LP cAVS"
+		device.string = "_ucm0001.hw:sofhdadsp,4"
+		device.buffering.buffer_size = "65536"
+		device.buffering.fragment_size = "16384"
+		device.access_mode = "mmap+timer"
+		device.profile.name = "HiFi: hw:sofhdadsp,4: sink"
+		device.profile.description = "HDMI / DisplayPort 2 Output"
+		alsa.mixer_device = "_ucm0001.hw:sofhdadsp"
+		device.description = "Comet Lake PCH-LP cAVS HDMI / DisplayPort 2 Output"
+		module-udev-detect.discovered = "1"
+		device.icon_name = "audio-card-pci"
+	Ports:
+		[Out] HDMI2: HDMI / DisplayPort 2 Output (type: HDMI, priority: 600, available)
+	Active Port: [Out] HDMI2
+	Formats:
+		pcm
+
+Sink #2
+	State: IDLE
+	Name: alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_3__sink
+	Description: Comet Lake PCH-LP cAVS HDMI / DisplayPort 1 Output
+	Driver: module-alsa-card.c
+	Sample Specification: s24-32le 2ch 48000Hz
+	Channel Map: front-left,front-right
+	Owner Module: 6
+	Mute: no
+	Volume: front-left: 53631 /  82% / -5,22 dB,   front-right: 53631 /  82% / -5,22 dB
+	        balance 0,00
+	Base Volume: 65536 / 100% / 0,00 dB
+	Monitor Source: alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp_3__sink.monitor
+	Latency: 38415 usec, configured 40000 usec
+	Flags: HARDWARE DECIBEL_VOLUME LATENCY 
+	Properties:
+		alsa.resolution_bits = "32"
+		device.api = "alsa"
+		device.class = "sound"
+		alsa.class = "generic"
+		alsa.subclass = "generic-mix"
+		alsa.name = ""
+		alsa.id = "HDMI1 (*)"
+		alsa.subdevice = "0"
+		alsa.subdevice_name = "subdevice #0"
+		alsa.device = "3"
+		alsa.card = "0"
+		alsa.card_name = "sof-hda-dsp"
+		alsa.long_card_name = "LENOVO-20S7000EGM-ThinkPadT15Gen1"
+		alsa.driver_name = "snd_soc_skl_hda_dsp"
+		device.bus_path = "pci-0000:00:1f.3-platform-skl_hda_dsp_generic"
+		sysfs.path = "/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0"
+		device.bus = "pci"
+		device.vendor.id = "8086"
+		device.vendor.name = "Intel Corporation"
+		device.product.id = "02c8"
+		device.product.name = "Comet Lake PCH-LP cAVS"
+		device.string = "_ucm0001.hw:sofhdadsp,3"
+		device.buffering.buffer_size = "65536"
+		device.buffering.fragment_size = "16384"
+		device.access_mode = "mmap+timer"
+		device.profile.name = "HiFi: hw:sofhdadsp,3: sink"
+		device.profile.description = "HDMI / DisplayPort 1 Output"
+		alsa.mixer_device = "_ucm0001.hw:sofhdadsp"
+		device.description = "Comet Lake PCH-LP cAVS HDMI / DisplayPort 1 Output"
+		module-udev-detect.discovered = "1"
+		device.icon_name = "audio-card-pci"
+	Ports:
+		[Out] HDMI1: HDMI / DisplayPort 1 Output (type: HDMI, priority: 500, not available)
+	Active Port: [Out] HDMI1
+	Formats:
+		pcm
+
+Sink #3
+	State: IDLE
+	Name: alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink
+	Description: Comet Lake PCH-LP cAVS Speaker + Headphones
+	Driver: module-alsa-card.c
+	Sample Specification: s32le 2ch 48000Hz
+	Channel Map: front-left,front-right
+	Owner Module: 6
+	Mute: no
+	Volume: front-left: 43222 /  66% / -10,85 dB,   front-right: 43222 /  66% / -10,85 dB
+	        balance 0,00
+	Base Volume: 65536 / 100% / 0,00 dB
+	Monitor Source: alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink.monitor
+	Latency: 34158 usec, configured 40000 usec
+	Flags: HARDWARE HW_MUTE_CTRL HW_VOLUME_CTRL DECIBEL_VOLUME LATENCY 
+	Properties:
+		alsa.resolution_bits = "32"
+		device.api = "alsa"
+		device.class = "sound"
+		alsa.class = "generic"
+		alsa.subclass = "generic-mix"
+		alsa.name = ""
+		alsa.id = "HDA Analog (*)"
+		alsa.subdevice = "0"
+		alsa.subdevice_name = "subdevice #0"
+		alsa.device = "0"
+		alsa.card = "0"
+		alsa.card_name = "sof-hda-dsp"
+		alsa.long_card_name = "LENOVO-20S7000EGM-ThinkPadT15Gen1"
+		alsa.driver_name = "snd_soc_skl_hda_dsp"
+		device.bus_path = "pci-0000:00:1f.3-platform-skl_hda_dsp_generic"
+		sysfs.path = "/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0"
+		device.bus = "pci"
+		device.vendor.id = "8086"
+		device.vendor.name = "Intel Corporation"
+		device.product.id = "02c8"
+		device.product.name = "Comet Lake PCH-LP cAVS"
+		device.string = "_ucm0001.hw:sofhdadsp"
+		device.buffering.buffer_size = "65536"
+		device.buffering.fragment_size = "16384"
+		device.access_mode = "mmap+timer"
+		device.profile.name = "HiFi: hw:sofhdadsp: sink"
+		device.profile.description = "Speaker + Headphones"
+		alsa.mixer_device = "_ucm0001.hw:sofhdadsp"
+		device.description = "Comet Lake PCH-LP cAVS Speaker + Headphones"
+		module-udev-detect.discovered = "1"
+		device.icon_name = "audio-card-pci"
+	Ports:
+		[Out] Speaker: Speaker (type: Speaker, priority: 100, availability unknown)
+		[Out] Headphones: Headphones (type: Headphones, priority: 200, not available)
+	Active Port: [Out] Speaker
+	Formats:
+		pcm
