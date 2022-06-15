@@ -3,6 +3,8 @@ use regex::Regex;
 use std::process::{Command, Stdio};
 // use std::collections::HashMap;
 
+// TODO figure out why ELF is ~17mb in size. Too big. even with Regex and debug
+
 use serde_json::Result;
 use serde::{Serialize, Deserialize};
 
@@ -13,26 +15,37 @@ struct Property<'a> {
    value:&'a str, // instead of {key: "device.product.name", value: "asd" }
 }
 
+impl<'a> Property<'a> {
+    pub fn new(line:&'a str) -> Self {
+        // find the divider
+        println!("line: »{}«", line);
+        let separator = line.find('=').unwrap();
+        let key   = &line[1..separator-1];
+        let value = &line[separator+3..(line.len() -1)];
+        Self { key, value }
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 struct Sink<'a> {
    id:i32,
-   state:&'a str,
-   name:&'a str,
+   active_port:&'a str,
+   base_volume:&'a str,
+   channel_map:&'a str,
    description:&'a str,
    driver:&'a str,
-   sample_specification:&'a str,
-   channel_map:&'a str,
-   owner_module:i32,
-   mute:bool,
-   volume:&'a str, //TODO vec<&'a str>
-   base_volume:&'a str,
-   monitor_source:&'a str,
-   latency:&'a str,
    flags:Vec<&'a str>,
-   properties:Vec<Property<'a>>,
-   ports:&'a str, // TODO
-   active_port:&'a str,
    formats:Vec<&'a str>,
+   latency:&'a str,
+   monitor_source:&'a str,
+   mute:bool,
+   name:&'a str,
+   owner_module:i32,
+   ports:&'a str, // TODO
+   properties:Vec<Property<'a>>,
+   sample_specification:&'a str,
+   state:&'a str,
+   volume:&'a str, //TODO vec<&'a str>
 }
 
 impl<'a> Sink<'a> {
@@ -187,30 +200,35 @@ fn main() -> Result<()> {
    // println!("{}", raw );
    let parts = partition_sinks(&raw);
    println!("sinks length: {}", parts.len());
-   let mut firstSink:bool = true; // TODO super ugly, make beautiful
+   let mut first_sink:bool = true; // TODO super ugly, make beautiful
 
    for raw_sink in parts {
       sinks.push(Sink::new(raw_sink));
       // println!("SINK PART: {}", raw_sink);
       let lines = parse_normal_line(raw_sink);
       let mut mode = 0; // TODO
-      let mut parsedSinkNumber:bool = false; // TODO 
+      let mut parsedSinkNumber:bool = false; // TODO
       // let mut prev:i32 = 0;
       // let mut vecMode = 0; //properties = 0, ports = 1, formats = 2
-      for line in lines.iter() 
+      // This line iterator is a reference to a string slice,
+      // which means that it is basically a double pointer.
+      // I think it would be cleaner if we could simply iterate over
+      // string slices directly
+      //for line in lines.iter()
+      for line in lines
       {
          let fc = &line[0..1]; //TODO compare single char instead i.e. line[0] == '\t' or something
 
          if !parsedSinkNumber {
-            if firstSink {           
+            if first_sink {
                println!("FIRST SINK line: »{}«", line);
                let k = line.find('#').unwrap();
-               println!("parsing id, »{}«", &line[(k+1)..]);          
+               println!("parsing id, »{}«", &line[(k+1)..]);
                sinks.last_mut().unwrap().id = String::from( &line[(k+1)..])
                .trim()
                .parse::<i32>()
                .expect("can't parse owner module as int");
-               firstSink = false;
+               first_sink = false;
             }else{
                sinks.last_mut().unwrap().id = String::from( &line[0..] )
                .trim()
@@ -222,39 +240,67 @@ fn main() -> Result<()> {
          }
 
          // prev = mode;
-         if fc == "\t" {
-            mode = 1;
-         } else if fc == " " {
-            mode = 2;
-            // line continuation
-         } else {
-            mode = 0;
+         if mode != 3 {
+             if fc == "\t" {
+                mode = 1;
+             } else if fc == " " {
+                mode = 2;
+                // line continuation
+             } else {
+                mode = 0;
+             }
          }
-         if mode == 0 {
-            println!("> line: »{}«", line);
+
+         if mode == 3 {
+            // println!("mode 3: »{}«", line);
+            if &line[..] == "Ports:" {
+                mode = 4;
+            }else{
+                sinks.last_mut().unwrap().properties.push( Property::new(line) );
+            }
+            // simply push back the rows.
+         } else if mode == 0 {
             let separator = line.find(':').unwrap();
             let key = &line[0..separator];
+
+            println!("> line: »{}«", line);
             if key == "State" {
-               sinks.last_mut().unwrap().state = &line[(separator+1)..];
+               sinks.last_mut().unwrap().state = &line[(separator+2)..];
             } else if key == "Name" {
-               sinks.last_mut().unwrap().name = &line[(separator+1)..];
+               sinks.last_mut().unwrap().name = &line[(separator+2)..];
             } else if key == "Description" {
-               sinks.last_mut().unwrap().description = &line[(separator+1)..];
+               sinks.last_mut().unwrap().description = &line[(separator+2)..];
             } else if key == "Driver" {
-               sinks.last_mut().unwrap().driver = &line[(separator+1)..];
+               sinks.last_mut().unwrap().driver = &line[(separator+2)..];
             } else if key == "Sample Specification" {
-               sinks.last_mut().unwrap().sample_specification = &line[(separator+1)..];
-            } else if key == "channel_map" {
-               sinks.last_mut().unwrap().channel_map = &line[(separator+1)..];
-            } else if key == "owner_module" {
-               sinks.last_mut().unwrap().owner_module = String::from( &line[(separator+1)..])
+               sinks.last_mut().unwrap().sample_specification = &line[(separator+2)..];
+            } else if key == "Channel Map" {
+               sinks.last_mut().unwrap().channel_map = &line[(separator+2)..];
+            } else if key == "Owner Module" {
+               sinks.last_mut().unwrap().owner_module = String::from( &line[(separator+2)..])
                   .trim()
                   .parse::<i32>()
                   .expect("can't parse owner module as int");
             } else if key == "Mute" {
-               if "yes" == &line[(separator+1)..] {
+               if "yes" == &line[(separator+2)..] {
                   sinks.last_mut().unwrap().mute = true;
                }
+            } else if key == "Volume" {
+               sinks.last_mut().unwrap().channel_map = &line[(separator+2)..];
+            } else if key == "Base Volume" {
+               sinks.last_mut().unwrap().base_volume = &line[(separator+2)..];
+            } else if key == "Monitor Source" {
+               sinks.last_mut().unwrap().monitor_source = &line[(separator+2)..];
+            } else if key == "Latency" {
+               sinks.last_mut().unwrap().latency = &line[(separator+2)..];
+            } else if key == "Flags" {
+               sinks.last_mut().unwrap().flags = line[(separator+2)..].split(" ").collect(); // TODO problem: last elem is empty string for some reason
+            } else if key == "Active Port" {
+               sinks.last_mut().unwrap().active_port = &line[(separator+2)..];
+            } else if key == "Properties" {
+               mode = 3;
+            } else {
+
             }
          }
       } // --- for lines
