@@ -341,10 +341,16 @@ fn main() -> Result<()> {
       //println!("+++ PARSED ALL LINES!");
    } // --- for parts
    println!("[");
+   let mut k:usize = 1;
    for sink in sinks.iter() {
       // Serialize it to a JSON string.
       let json = serde_json::to_string(&sink)?;
-      println!("{}", json);
+      if k < sinks.len() {
+         println!("{},", json);
+      }else{
+         println!("{}", json);
+      }
+      k += 1;
    }
 
    println!("]");
