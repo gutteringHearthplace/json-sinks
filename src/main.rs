@@ -32,8 +32,6 @@ impl<'a> Port<'a> {
     }
 }
 
-
-
 #[derive(Serialize, Deserialize, Debug)]
 struct Property<'a> {
    key:&'a str,   // TODO ideally we want to give structure to things such as: device.product.name = "asdlkj"
@@ -135,7 +133,6 @@ impl<'a> Sink<'a> {
    mute:bool,
    flags:Vec<&'a str>,
 }*/
-
 
 fn get_raw_sinks() -> String {
    let result = Command::new("pactl")
@@ -357,3 +354,4 @@ fn main() -> Result<()> {
 
    Ok(()) // we use this Result return val because of the »?« used in the to_string method.
 } // --- main
+
