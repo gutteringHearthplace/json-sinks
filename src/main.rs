@@ -51,7 +51,7 @@ impl<'a> Property<'a> {
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Sink<'a> {
-   id:i32,
+   id:i64,
    active_port:&'a str,
    base_volume:&'a str,
    channel_map:&'a str,
@@ -63,7 +63,7 @@ struct Sink<'a> {
    monitor_source:&'a str,
    mute:bool,
    name:&'a str,
-   owner_module:i32,
+   owner_module:i64,
    ports:Vec<Port<'a>>,
    properties:Vec<Property<'a>>,
    sample_specification:&'a str,
@@ -230,7 +230,7 @@ fn main() -> Result<()> {
       let lines = parse_normal_line(raw_sink);
       let mut mode = 0; // TODO
       let mut parsed_sink_number:bool = false; // TODO
-      // let mut prev:i32 = 0;
+      // let mut prev:i64 = 0;
       // let mut vecMode = 0; //properties = 0, ports = 1, formats = 2
       // This line iterator is a reference to a string slice,
       // which means that it is basically a double pointer.
@@ -248,13 +248,13 @@ fn main() -> Result<()> {
                //println!("parsing id, »{}«", &line[(k+1)..]);
                sinks.last_mut().unwrap().id = String::from( &line[(k+1)..])
                .trim()
-               .parse::<i32>()
+               .parse::<i64>()
                .expect("can't parse owner module as int");
                first_sink = false;
             }else{
                sinks.last_mut().unwrap().id = String::from( &line[0..] )
                .trim()
-               .parse::<i32>()
+               .parse::<i64>()
                .expect("can't parse owner module as int");
             }
             parsed_sink_number = true;
@@ -310,7 +310,7 @@ fn main() -> Result<()> {
             } else if key == "Owner Module" {
                sinks.last_mut().unwrap().owner_module = String::from( &line[(separator+2)..])
                   .trim()
-                  .parse::<i32>()
+                  .parse::<i64>()
                   .expect("can't parse owner module as int");
             } else if key == "Mute" {
                if "yes" == &line[(separator+2)..] {
