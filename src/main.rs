@@ -18,16 +18,24 @@ impl<'a> Port<'a> {
     pub fn new(line:&'a str) -> Self {
         // find the divider
         //println!("line: »{}«", line);
-        let separator = line.find(']').unwrap();
-        //println!("+_++_out part: »{}«", &line[0..separator]);
         let first_colon_separator = line.find(':').unwrap();
         let first_parenthesis_separator = line.find('(').unwrap();
-        let key   = &line[1..separator-1];
-        let value = &line[separator+3..(line.len() -1)];
-        Self {
-            output: "\t[Out" == &line[0..separator],
-            name: &line[(separator+1)..first_colon_separator],
-            description: &line[(first_colon_separator+1)..first_parenthesis_separator],
+        let separator = line.find(']');
+        if let Some(i) = separator {
+            //println!("+_++_out part: »{}«", &line[0..separator]);
+            let key   = &line[1..i-1];
+            let value = &line[i+3..(line.len() -1)];
+            Self {
+                output: "\t[Out" == &line[0..i],
+                name: &line[(i+1)..first_colon_separator],
+                description: &line[(first_colon_separator+1)..first_parenthesis_separator],
+            }
+        } else {
+            Self {
+                output: true,
+                name: &line[1..first_colon_separator],
+                description: &line[(first_colon_separator+1)..first_parenthesis_separator],
+            }
         }
     }
 }
